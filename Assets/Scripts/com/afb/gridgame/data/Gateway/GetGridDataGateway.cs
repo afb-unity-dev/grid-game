@@ -1,3 +1,4 @@
+using AutoMapper;
 using Com.Afb.GridGame.Data.Dto;
 using Com.Afb.GridGame.Util.ResourceLoader;
 using Cysharp.Threading.Tasks;
@@ -8,13 +9,12 @@ namespace Com.Afb.GridGame.Data.Gateway {
 
         [Inject]
         private ILoadFromResources loadFromResources;
-
+        [Inject(Id ="DataMapper")]
+        private IMapper dataMapper;
 
         public async UniTask<GridDto> Handle() {
             var gridSettings = await loadFromResources.Load<GridSettings>("GridSettings");
-
-
-            return null ;
+            return dataMapper.Map<GridDto>(gridSettings);
         }
     }
 }
