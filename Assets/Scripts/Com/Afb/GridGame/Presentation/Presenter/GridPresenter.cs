@@ -13,12 +13,6 @@ namespace Com.Afb.GridGame.Presentation.Presenter {
         public IReadOnlyReactiveProperty<int> GridSize => gridSize;
         public IReadOnlyList<IReadOnlyList<IReadOnlyReactiveProperty<bool>>> GridMatrix => gridMatrix;
 
-        public void SetGridSize(int gridSize) {
-            CreateMatrix(gridSize);
-
-            this.gridSize.SetValueAndForceNotify(gridSize);
-        }
-
         private void CreateMatrix(int gridSize) {
             gridMatrix = new List<List<ReactiveProperty<bool>>>();
 
@@ -29,6 +23,24 @@ namespace Com.Afb.GridGame.Presentation.Presenter {
                 for (int y = 0; y < gridSize; y++) {
                     var cell = new ReactiveProperty<bool>(false);
                     horizontal.Add(cell);
+                }
+            }
+        }
+
+        public void SetGridSize(int gridSize) {
+            if (gridSize != GridSize.Value) {
+                CreateMatrix(gridSize);
+                this.gridSize.SetValueAndForceNotify(gridSize);
+            }
+        }
+
+        public void SetGridMatrix(List<List<bool>> gridMatrixData) {
+            int gridSize = GridSize.Value;
+
+            for (int x = 0; x < gridSize; x++) {
+                for (int y = 0; y < gridSize; y++) {
+                    var cell = new ReactiveProperty<bool>(false);
+                    gridMatrix[x][y].Value = gridMatrixData[x][y];
                 }
             }
         }
