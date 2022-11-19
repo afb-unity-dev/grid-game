@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Com.Afb.GridGame.Editor {
     [CustomEditor(typeof(GridSettings))]
     public class GridSettingsEditor : UnityEditor.Editor {
-
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
 
