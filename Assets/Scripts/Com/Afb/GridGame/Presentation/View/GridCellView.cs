@@ -1,10 +1,11 @@
+using Com.Afb.GridGame.Presentation.Interactor;
 using Com.Afb.GridGame.Presentation.Presenter;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Com.Afb.GridGame.Presentation.View {
-    public class GridCellView : MonoBehaviour, IPoolable<Transform, Vector3, Vector2Int, Vector2> {
+    public class GridCellView : MonoBehaviour, IPoolable<Transform, Vector3, Vector2Int, Vector2>, IClickableView {
         // Serialize Fields
         [SerializeField]
         private SpriteRenderer xObject;
@@ -12,20 +13,14 @@ namespace Com.Afb.GridGame.Presentation.View {
         // Dependencies
         [Inject]
         private IGridMatrixPresenter gridMatrixPresenter;
+        [Inject]
+        private IGridClickInteractor gridClickInteractor;
 
         // Readonly Properties
         private readonly CompositeDisposable disposables = new CompositeDisposable();
 
         // Private Properties
-        private SpriteRenderer spriteRenderer;
-        private SpriteRenderer SpriteRenderer {
-            get {
-                if (spriteRenderer == null) {
-                    spriteRenderer = GetComponent<SpriteRenderer>();
-                }
-                return spriteRenderer;
-            }
-        }
+        private Vector2Int gridPosition;
 
         public void OnSpawned(Transform parent, Vector3 position, Vector2Int gridPosition, Vector2 size) {
             SetTransform(parent, position);
@@ -44,6 +39,7 @@ namespace Com.Afb.GridGame.Presentation.View {
 
 
         private void SetGridPosition(Vector2Int gridPosition) {
+            this.gridPosition = gridPosition;
             gameObject.name = $"Cell ({gridPosition.x},{gridPosition.y})";
             gridMatrixPresenter.GridMatrix[gridPosition.x][gridPosition.y]
                 .Subscribe(OnCellChange)
@@ -51,12 +47,21 @@ namespace Com.Afb.GridGame.Presentation.View {
         }
 
         private void SetSize(Vector2 size) {
-            SpriteRenderer.size = size;
+            var renderer = GetComponent<SpriteRenderer>();
+            var collider = GetComponent<BoxCollider2D>();
+
+            renderer.size = size;
             xObject.size = size;
+            collider.size = size;
+            collider.offset = new Vector2(size.x / 2, -size.y / 2);
         }
 
         private void OnCellChange(bool show) {
             xObject.gameObject.SetActive(show);
+        }
+
+        public void Click() {
+            gridClickInteractor.OnClickCell(gridPosition);
         }
     }
 }
