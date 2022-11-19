@@ -1,11 +1,12 @@
 using System;
 using Com.Afb.GridGame.Business.UseCase;
+using Com.Afb.GridGame.Data.Dto;
 using Com.Afb.GridGame.Presentation.Presenter;
 using UniRx;
-using Com.Afb.GridGame.Data.Dto;
+using UnityEngine;
 
 namespace Com.Afb.GridGame.Presentation.Interactor {
-    public class GridInteractor : IGridInteractor, IDisposable {
+    public class GridInteractor : IGridClickInteractor, IDisposable {
         // Readonly Properties
         private readonly CompositeDisposable disposables = new CompositeDisposable();
 
@@ -13,14 +14,13 @@ namespace Com.Afb.GridGame.Presentation.Interactor {
         private readonly IGridUseCase gridUseCase;
         private readonly IGridPresenter gridPresenter;
 
-        // Public Properties
-        public IGridSizePresenter GridSizePresenter => gridPresenter;
-
         public GridInteractor(IGridUseCase gridUseCase, IGridPresenter gridPresenter) {
             this.gridUseCase = gridUseCase;
             this.gridPresenter = gridPresenter;
 
-            gridUseCase.GridModel.Subscribe(OnGridModelUpdate).AddTo(disposables);
+            gridUseCase.GridModel
+                .Subscribe(OnGridModelUpdate)
+                .AddTo(disposables);
         }
 
         public void Dispose() {
@@ -33,6 +33,11 @@ namespace Com.Afb.GridGame.Presentation.Interactor {
             }
 
             gridPresenter.SetGridSize(gridModel.GridSize);
+            gridPresenter.SetGridMatrix(gridModel.GridMatrix);
+        }
+
+        public void OnClickCell(Vector2Int cellPosition) {
+            gridUseCase.MarkCell(cellPosition.x, cellPosition.y);
         }
     }
 }
