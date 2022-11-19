@@ -5,6 +5,7 @@ namespace Com.Afb.GridGame.Installers.Game {
         public override void InstallBindings() {
             BindPresenter();
             BindInteractor();
+            BindView();
         }
 
         private void BindPresenter() {
@@ -13,6 +14,10 @@ namespace Com.Afb.GridGame.Installers.Game {
 
         private void BindInteractor() {
             Container.Install<InteractorInstaller>();
+        }
+
+        private void BindView() {
+            Container.Install<ViewInstaller>();
         }
     }
 }
