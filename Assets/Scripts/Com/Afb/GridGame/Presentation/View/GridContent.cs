@@ -1,6 +1,5 @@
 using Com.Afb.GridGame.Presentation.View.Util.Extensions;
 using UnityEngine;
-using Zenject;
 
 namespace Com.Afb.GridGame.Presentation.View {
     public class GridContent : MonoBehaviour {
@@ -32,13 +31,10 @@ namespace Com.Afb.GridGame.Presentation.View {
             float minY = bounds.min.y;
             float maxY = bounds.max.y;
 
-            Gizmos.DrawCube(bounds.center, new Vector3(0.5f, 0.5f, 0.5f));
-
             Gizmos.DrawCube(new Vector3(minX, minY, 0), new Vector3(0.5f, 0.5f, 0.5f));
             Gizmos.DrawCube(new Vector3(minX, maxY, 0), new Vector3(0.5f, 0.5f, 0.5f));
             Gizmos.DrawCube(new Vector3(maxX, minY, 0), new Vector3(0.5f, 0.5f, 0.5f));
             Gizmos.DrawCube(new Vector3(maxX, maxY, 0), new Vector3(0.5f, 0.5f, 0.5f));
-
 
             Gizmos.DrawLine(new Vector3(minX, minY, 0), new Vector3(minX, maxY, 0));
             Gizmos.DrawLine(new Vector3(minX, maxY, 0), new Vector3(maxX, maxY, 0));

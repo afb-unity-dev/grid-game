@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Com.Afb.GridGame.Presentation.Interactor;
+using Com.Afb.GridGame.Presentation.Presenter;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -12,8 +12,7 @@ namespace Com.Afb.GridGame.Presentation.View {
 
         // Dependencies
         [Inject]
-        private IGridInteractor gridInteractor;
-        // Dependencies
+        private IGridSizePresenter gridSizePresenter;
         [Inject]
         private MonoPoolableMemoryPool<Transform, Vector3, Vector2Int, Vector2, GridCellView> gridCellPool;
 
@@ -25,12 +24,12 @@ namespace Com.Afb.GridGame.Presentation.View {
         }
 
         private void Initiaize() {
-            gridInteractor.GridSizePresenter.GridSize
+            gridSizePresenter.GridSize
+                .TakeUntilDestroy(gameObject)
                 .Subscribe(OnGridSizeUpdate);
         }
 
         private void OnGridSizeUpdate(int gridSize) {
-            Debug.Log("GridView - GridSize: " + gridSize);
             ClearGrid();
             CreateGrid(gridSize);
         }
