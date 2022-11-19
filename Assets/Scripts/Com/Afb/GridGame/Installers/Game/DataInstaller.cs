@@ -16,7 +16,7 @@ namespace Com.Afb.GridGame.Installers.Game {
             });
 
             // only during development, validate your mappings; remove it before release
-#if DEBUG
+#if UNITY_EDITOR
             configuration.AssertConfigurationIsValid();
 #endif
             var mapper = configuration.CreateMapper();

@@ -12,11 +12,12 @@ namespace Com.Afb.GridGame.Installers.Game {
 
         private void BindMapper() {
             var configuration = new MapperConfiguration(cfg => {
-                cfg.CreateMap<GridDto, GridModel>();
+                cfg.CreateMap<GridDto, GridModel>()
+                    .ForMember(model => model.GridMatrix, opt => opt.Ignore());
             });
 
             // only during development, validate your mappings; remove it before release
-#if DEBUG
+#if UNITY_EDITOR
             configuration.AssertConfigurationIsValid();
 #endif
             var mapper = configuration.CreateMapper();
