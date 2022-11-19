@@ -1,7 +1,7 @@
 using Com.Afb.GridGame.Util.ResourceLoader;
 using Zenject;
 
-namespace Com.Afb.GridGame.Installer.Global {
+namespace Com.Afb.GridGame.Installers.Global {
     public class UtilInstaller : MonoInstaller {
         public override void InstallBindings() {
             BindResourceLoader();
