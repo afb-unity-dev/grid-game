@@ -11,12 +11,12 @@ namespace Com.Afb.GridGame.Presentation.Interactor {
 
         // Readonly Properties
         private readonly IGridUseCase gridUseCase;
-        private readonly IUpdatableGridPresenter gridPresenter;
+        private readonly IGridPresenter gridPresenter;
 
         // Public Properties
-        public IGridPresenter GridPresenter => gridPresenter;
+        public IGridSizePresenter GridSizePresenter => gridPresenter;
 
-        public GridInteractor(IGridUseCase gridUseCase, IUpdatableGridPresenter gridPresenter) {
+        public GridInteractor(IGridUseCase gridUseCase, IGridPresenter gridPresenter) {
             this.gridUseCase = gridUseCase;
             this.gridPresenter = gridPresenter;
 
