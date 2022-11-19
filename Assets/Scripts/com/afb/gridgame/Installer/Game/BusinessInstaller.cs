@@ -1,17 +1,17 @@
 using AutoMapper;
+using Com.Afb.GridGame.Business.UseCase;
 using Com.Afb.GridGame.Data.Dto;
-using Com.Afb.GridGame.Data.Gateway;
 using Zenject;
 
-public class DataInstaller : MonoInstaller {
+public class BusinessInstaller : MonoInstaller {
     public override void InstallBindings() {
         BindMapper();
-        BindGetGridDataGateway();
+        BindGridUseCase();
     }
 
     private void BindMapper() {
         var configuration = new MapperConfiguration(cfg => {
-            cfg.CreateMap<GridSettings, GridDto>();
+            cfg.CreateMap<GridDto, GridModel>();
         });
 
         // only during development, validate your mappings; remove it before release
@@ -21,12 +21,12 @@ public class DataInstaller : MonoInstaller {
         var mapper = configuration.CreateMapper();
 
         Container.Bind<IMapper>()
-            .WithId("DataMapper")
+            .WithId("BusinessMapper")
             .FromInstance(mapper);
     }
 
-    private void BindGetGridDataGateway() {
-        Container.BindInterfacesTo<GetGridDataGateway>()
+    private void BindGridUseCase() {
+        Container.BindInterfacesTo<GridUseCase>()
             .AsTransient()
             .Lazy();
     }
