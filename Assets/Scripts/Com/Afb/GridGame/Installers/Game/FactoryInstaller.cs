@@ -1,5 +1,5 @@
 using Com.Afb.GridGame.Presentation.View;
-using Com.Afb.GridGame.Util.Factory;
+using Com.Afb.GridGame.Presentation.View.Util.Factory;
 using UnityEngine;
 using Zenject;
 

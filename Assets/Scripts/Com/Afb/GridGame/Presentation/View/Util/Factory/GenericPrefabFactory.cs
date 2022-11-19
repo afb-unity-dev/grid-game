@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Com.Afb.GridGame.Util.Factory {
+namespace Com.Afb.GridGame.Presentation.View.Util.Factory {
     public class GenericPrefabFactory<TValue> : IFactory<TValue>, IFactory<Transform, TValue> {
         // Dependencies
         [Inject]
