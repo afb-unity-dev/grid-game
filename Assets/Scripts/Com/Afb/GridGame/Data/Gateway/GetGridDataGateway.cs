@@ -10,11 +10,15 @@ namespace Com.Afb.GridGame.Data.Gateway {
         private readonly ILoadFromResources loadFromResources;
         private readonly IMapper dataMapper;
 
-        public GetGridDataGateway(ILoadFromResources loadFromResources, [Inject(Id = "DataMapper")] IMapper dataMapper) {
+        // Constructor
+        public GetGridDataGateway(ILoadFromResources loadFromResources,
+                [Inject(Id = "DataMapper")] IMapper dataMapper) {
+
             this.loadFromResources = loadFromResources;
             this.dataMapper = dataMapper;
         }
 
+        // Public Properties
         public async UniTask<GridDto> Handle() {
             var gridSettings = await loadFromResources.Load<GridSettings>("GridSettings");
             return dataMapper.Map<GridDto>(gridSettings);

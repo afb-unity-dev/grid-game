@@ -5,11 +5,13 @@ using Zenject;
 
 namespace Com.Afb.GridGame.Installers.Game {
     public class DataInstaller : MonoInstaller {
+        // Public Methods
         public override void InstallBindings() {
             BindMapper();
             BindGetGridDataGateway();
         }
 
+        // Private Methods
         private void BindMapper() {
             var configuration = new MapperConfiguration(cfg => {
                 cfg.CreateMap<GridSettings, GridDto>();

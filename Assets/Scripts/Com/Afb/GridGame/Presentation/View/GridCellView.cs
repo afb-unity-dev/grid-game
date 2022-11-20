@@ -23,6 +23,7 @@ namespace Com.Afb.GridGame.Presentation.View {
         // Private Properties
         private Vector2Int gridPosition;
 
+        // Public Methods
         public void OnSpawned(Transform parent, Vector3 position, Vector2Int gridPosition, Vector2 size) {
             SetTransform(parent, position);
             SetGridPosition(gridPosition);
@@ -34,11 +35,15 @@ namespace Com.Afb.GridGame.Presentation.View {
             disposables.Clear();
         }
 
+        public void Click() {
+            gridClickInteractor.OnClickCell(gridPosition);
+        }
+
+        // Private Methods
         private void SetTransform(Transform parent, Vector3 position) {
             transform.SetParent(parent);
             transform.position = position;
         }
-
 
         private void SetGridPosition(Vector2Int gridPosition) {
             this.gridPosition = gridPosition;
@@ -67,10 +72,6 @@ namespace Com.Afb.GridGame.Presentation.View {
 
             bool show = gridMatrix[gridPosition.x][gridPosition.y];
             gridCellMarkView.Show(show);
-        }
-
-        public void Click() {
-            gridClickInteractor.OnClickCell(gridPosition);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Com.Afb.GridGame.Presentation.View {
         // Public Properties
         public Bounds Bounds => bounds;
 
+        // Unity Methods
         private void Awake() {
             SetBounds();
         }
@@ -42,6 +43,7 @@ namespace Com.Afb.GridGame.Presentation.View {
             Gizmos.DrawLine(new Vector3(maxX, minY, 0), new Vector3(minX, minY, 0));
         }
 
+        // Private Methods
         private void SetBounds() {
             Bounds cameraBounds = Camera.main.OrthographicBounds();
 

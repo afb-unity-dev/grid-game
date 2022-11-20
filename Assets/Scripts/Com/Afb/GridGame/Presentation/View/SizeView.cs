@@ -24,6 +24,7 @@ namespace Com.Afb.GridGame.Presentation.View {
         // Private Properties
         private int gridSize;
 
+        // Unity Methods
         private void Awake() {
             gridSizePresenter.GridSize
                 .TakeUntilDestroy(gameObject)
@@ -33,6 +34,7 @@ namespace Com.Afb.GridGame.Presentation.View {
             gridSizeInput.onEndEdit.AddListener(_ => SetGridSize());
         }
 
+        // Private Methods
         private void OnGridSizeUpdate(int gridSize) {
             gridSizeInput.SetTextWithoutNotify(gridSize.ToString());
         }
@@ -54,7 +56,7 @@ namespace Com.Afb.GridGame.Presentation.View {
             return value;
         }
 
-        public void SetGridSize() {
+        private void SetGridSize() {
             gridSize = ValidateInput(gridSize);
             gridSizeInteractor.SetGridSize(gridSize);
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Com.Afb.GridGame.Presentation.View.Util.Factory {
-    public class GenericPrefabFactory<TValue> : IFactory<TValue>, IFactory<Transform, TValue> {
+    public class GenericPrefabFactory<TValue> : IFactory<TValue> {
         // Dependencies
         [Inject]
         private DiContainer container;
@@ -11,17 +11,14 @@ namespace Com.Afb.GridGame.Presentation.View.Util.Factory {
         private GameObject prefab;
         private Transform parent;
 
+        // Constructor
         public GenericPrefabFactory(GameObject prefab, Transform parent = null) {
             this.prefab = prefab;
             this.parent = parent;
         }
 
+        // Public Methods
         public TValue Create() {
-            TValue view = container.InstantiatePrefabForComponent<TValue>(prefab, parent);
-            return view;
-        }
-
-        public TValue Create(Transform parent) {
             TValue view = container.InstantiatePrefabForComponent<TValue>(prefab, parent);
             return view;
         }

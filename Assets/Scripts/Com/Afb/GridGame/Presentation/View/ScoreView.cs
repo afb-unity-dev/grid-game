@@ -14,12 +14,14 @@ namespace Com.Afb.GridGame.Presentation.View {
         [Inject]
         private IGridScorePresenter gridScorePresenter;
 
+        // Unity Methods
         private void Awake() {
             gridScorePresenter.GridScore
                 .TakeUntilDestroy(gameObject)
                 .Subscribe(SetScore);
         }
 
+        // Private Methods
         private void SetScore(int score) {
             scoreValue.text = score.ToString();
         }

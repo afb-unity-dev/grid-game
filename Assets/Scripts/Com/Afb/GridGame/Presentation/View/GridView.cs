@@ -19,10 +19,12 @@ namespace Com.Afb.GridGame.Presentation.View {
         // Readonly Properties
         private readonly List<GridCellView> gridCells = new List<GridCellView>();
 
+        // Unity Methods
         private void Start() {
             Initiaize();
         }
 
+        // Private Methods
         private void Initiaize() {
             gridSizePresenter.GridSize
                 .TakeUntilDestroy(gameObject)

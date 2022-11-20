@@ -10,12 +10,14 @@ namespace Com.Afb.GridGame.Presentation.View {
         [Inject]
         private IClickEvent clickEvent;
 
+        // Unity Methods
         private void Awake() {
             clickEvent.Click
                 .TakeUntilDestroy(gameObject)
                 .Subscribe(OnClick);
         }
 
+        // Private Methods
         private void OnClick(InputData input) {
             RaycastHit2D[] hits = PhysicsCast.CircleCastScreenPosition(input.position,
                 Camera.main,
