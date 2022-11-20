@@ -37,7 +37,7 @@ namespace Com.Afb.GridGame.Presentation.Interactor {
         }
 
         public void OnClickCell(Vector2Int cellPosition) {
-            gridUseCase.MarkCell(cellPosition.x, cellPosition.y);
+            gridUseCase.MarkCell((cellPosition.x, cellPosition.y));
         }
     }
 }

@@ -7,24 +7,25 @@ namespace Com.Afb.GridGame.Presentation.Presenter {
         private readonly ReactiveProperty<int> gridSize = new ReactiveProperty<int>(0);
 
         // Private Properties
-        private List<List<ReactiveProperty<bool>>> gridMatrix = null;
+        private ReactiveProperty<List<List<bool>>> gridMatrix = new ReactiveProperty<List<List<bool>>>(null);
 
         // Public Properties
         public IReadOnlyReactiveProperty<int> GridSize => gridSize;
-        public IReadOnlyList<IReadOnlyList<IReadOnlyReactiveProperty<bool>>> GridMatrix => gridMatrix;
+        public IReadOnlyReactiveProperty<List<List<bool>>> GridMatrix => gridMatrix;
 
         private void CreateMatrix(int gridSize) {
-            gridMatrix = new List<List<ReactiveProperty<bool>>>();
+            var list = new List<List<bool>>();
 
             for (int x = 0; x < gridSize; x++) {
-                var horizontal = new List<ReactiveProperty<bool>>();
-                gridMatrix.Add(horizontal);
+                var horizontal = new List<bool>();
+                list.Add(horizontal);
 
                 for (int y = 0; y < gridSize; y++) {
-                    var cell = new ReactiveProperty<bool>(false);
-                    horizontal.Add(cell);
+                    horizontal.Add(false);
                 }
             }
+
+            SetGridMatrix(list);
         }
 
         public void SetGridSize(int gridSize) {
@@ -35,14 +36,7 @@ namespace Com.Afb.GridGame.Presentation.Presenter {
         }
 
         public void SetGridMatrix(List<List<bool>> gridMatrixData) {
-            int gridSize = GridSize.Value;
-
-            for (int x = 0; x < gridSize; x++) {
-                for (int y = 0; y < gridSize; y++) {
-                    var cell = new ReactiveProperty<bool>(false);
-                    gridMatrix[x][y].Value = gridMatrixData[x][y];
-                }
-            }
+            gridMatrix.SetValueAndForceNotify(gridMatrixData);
         }
     }
 }
