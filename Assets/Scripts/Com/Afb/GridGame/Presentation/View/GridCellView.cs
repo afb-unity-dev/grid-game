@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Com.Afb.GridGame.Presentation.Interactor;
 using Com.Afb.GridGame.Presentation.Presenter;
 using UniRx;
@@ -8,7 +9,7 @@ namespace Com.Afb.GridGame.Presentation.View {
     public class GridCellView : MonoBehaviour, IPoolable<Transform, Vector3, Vector2Int, Vector2>, IClickableView {
         // Serialize Fields
         [SerializeField]
-        private SpriteRenderer xObject;
+        private GridCellMarkView gridCellMarkView;
 
         // Dependencies
         [Inject]
@@ -26,6 +27,7 @@ namespace Com.Afb.GridGame.Presentation.View {
             SetTransform(parent, position);
             SetGridPosition(gridPosition);
             SetSize(size);
+            gridCellMarkView.SetActive(false);
         }
 
         public void OnDespawned() {
@@ -41,8 +43,9 @@ namespace Com.Afb.GridGame.Presentation.View {
         private void SetGridPosition(Vector2Int gridPosition) {
             this.gridPosition = gridPosition;
             gameObject.name = $"Cell ({gridPosition.x},{gridPosition.y})";
-            gridMatrixPresenter.GridMatrix[gridPosition.x][gridPosition.y]
-                .Subscribe(OnCellChange)
+
+            gridMatrixPresenter.GridMatrix
+                .Subscribe(OnGridChange)
                 .AddTo(disposables);
         }
 
@@ -51,13 +54,14 @@ namespace Com.Afb.GridGame.Presentation.View {
             var collider = GetComponent<BoxCollider2D>();
 
             renderer.size = size;
-            xObject.size = size;
             collider.size = size;
             collider.offset = new Vector2(size.x / 2, -size.y / 2);
+            gridCellMarkView.SetImage(renderer.bounds.center, size);
         }
 
-        private void OnCellChange(bool show) {
-            xObject.gameObject.SetActive(show);
+        private void OnGridChange(List<List<bool>> gridMatrix) {
+            bool show = gridMatrix[gridPosition.x][gridPosition.y];
+            gridCellMarkView.Show(show);
         }
 
         public void Click() {
