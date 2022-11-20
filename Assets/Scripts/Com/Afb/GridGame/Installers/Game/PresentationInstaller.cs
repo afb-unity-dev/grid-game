@@ -2,12 +2,14 @@ using Zenject;
 
 namespace Com.Afb.GridGame.Installers.Game {
     public class PresentationInstaller : MonoInstaller {
+        // Public Methods
         public override void InstallBindings() {
             BindPresenter();
             BindInteractor();
             BindView();
         }
 
+        // Private Methods
         private void BindPresenter() {
             Container.Install<PresentaterInstaller>();
         }

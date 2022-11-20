@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Com.Afb.GridGame.Presentation.View.Util.Extensions {
     public static class CameraExtensions {
+        // Public Functions
         public static Bounds OrthographicBounds(this Camera camera) {
             var t = camera.transform;
             var x = t.position.x;

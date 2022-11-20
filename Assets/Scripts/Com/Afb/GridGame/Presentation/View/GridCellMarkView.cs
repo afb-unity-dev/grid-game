@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Com.Afb.GridGame.Presentation.View {
     public class GridCellMarkView : MonoBehaviour {
+        // Public Methods
         public void SetImage(Vector2 center, Vector2 size) {
             var renderer = GetComponent<SpriteRenderer>();
 
@@ -26,6 +27,7 @@ namespace Com.Afb.GridGame.Presentation.View {
             gameObject.SetActive(active);
         }
 
+        // Private Methods
         private void In() {
             SetActive(true);
             var animator = GetComponent<Animator>();

@@ -12,10 +12,12 @@ namespace Com.Afb.GridGame.Installers.Game {
         [SerializeField]
         private Transform defaultgridCellParent;
 
+        // Public Methods
         public override void InstallBindings() {
             BindGridCellFactory();
         }
 
+        // Private Methods
         private void BindGridCellFactory() {
             Container.BindInterfacesTo<GenericPrefabFactory<GridCellView>>()
                 .FromNew()

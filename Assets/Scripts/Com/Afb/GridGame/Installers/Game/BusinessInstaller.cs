@@ -1,15 +1,18 @@
 using AutoMapper;
 using Com.Afb.GridGame.Business.UseCase;
 using Com.Afb.GridGame.Data.Dto;
+using Com.Afb.GridGame.Data.Model;
 using Zenject;
 
 namespace Com.Afb.GridGame.Installers.Game {
     public class BusinessInstaller : MonoInstaller {
+        // Public Methods
         public override void InstallBindings() {
             BindMapper();
             BindGridUseCase();
         }
 
+        // Private Methods
         private void BindMapper() {
             var configuration = new MapperConfiguration(cfg => {
                 cfg.CreateMap<GridDto, GridModel>()
