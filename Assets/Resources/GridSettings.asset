@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a76a9522e1e4a348aabddf2867e6fd, type: 3}
   m_Name: GridSettings
   m_EditorClassIdentifier: 
-  gridSize: 10
+  initialGridSize: 4
