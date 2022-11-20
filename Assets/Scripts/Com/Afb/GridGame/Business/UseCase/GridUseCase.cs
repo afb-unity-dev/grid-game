@@ -23,8 +23,17 @@ namespace Com.Afb.GridGame.Business.UseCase {
             InitializeGrid();
         }
 
-        private async void InitializeGrid() {
-            var model = await GetGridModel();
+        private async void InitializeGrid(int? gridSize = null) {
+            GridModel model;
+            if (!gridSize.HasValue) {
+                model = await GetGridModel();
+            }
+            else {
+                model = new GridModel() {
+                    GridSize = gridSize.Value
+                };
+            }
+            
             SetGridMatrix(model);
             ResetCount(model);
             gridModel.Value = model;
@@ -125,6 +134,10 @@ namespace Com.Afb.GridGame.Business.UseCase {
                     gridModel.SetValueAndForceNotify(model);
                 }
             }
+        }
+
+        public void SetGridSize(int gridSize) {
+            InitializeGrid(gridSize);
         }
     }
 }

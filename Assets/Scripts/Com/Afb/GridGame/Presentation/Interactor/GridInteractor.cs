@@ -6,7 +6,7 @@ using UniRx;
 using UnityEngine;
 
 namespace Com.Afb.GridGame.Presentation.Interactor {
-    public class GridInteractor : IGridClickInteractor, IDisposable {
+    public class GridInteractor : IGridInteractor, IDisposable {
         // Readonly Properties
         private readonly CompositeDisposable disposables = new CompositeDisposable();
 
@@ -34,10 +34,15 @@ namespace Com.Afb.GridGame.Presentation.Interactor {
 
             gridPresenter.SetGridSize(gridModel.GridSize);
             gridPresenter.SetGridMatrix(gridModel.GridMatrix);
+            gridPresenter.SetGridScore(gridModel.Count);
         }
 
         public void OnClickCell(Vector2Int cellPosition) {
             gridUseCase.MarkCell((cellPosition.x, cellPosition.y));
+        }
+
+        public void SetGridSize(int gridSize) {
+            gridUseCase.SetGridSize(gridSize);
         }
     }
 }

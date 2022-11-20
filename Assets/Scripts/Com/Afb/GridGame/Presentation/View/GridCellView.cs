@@ -15,7 +15,7 @@ namespace Com.Afb.GridGame.Presentation.View {
         [Inject]
         private IGridMatrixPresenter gridMatrixPresenter;
         [Inject]
-        private IGridClickInteractor gridClickInteractor;
+        private IGridInteractor gridClickInteractor;
 
         // Readonly Properties
         private readonly CompositeDisposable disposables = new CompositeDisposable();
@@ -60,6 +60,11 @@ namespace Com.Afb.GridGame.Presentation.View {
         }
 
         private void OnGridChange(List<List<bool>> gridMatrix) {
+            if (gridMatrix == null) {
+                gridCellMarkView.Show(false);
+                return;
+            }
+
             bool show = gridMatrix[gridPosition.x][gridPosition.y];
             gridCellMarkView.Show(show);
         }
