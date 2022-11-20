@@ -1,4 +1,4 @@
 namespace Com.Afb.GridGame.Presentation.Interactor {
-    public interface IGridInteractor {
+    public interface IGridInteractor : IGridClickInteractor, IGridSizeInteractor {
     }
 }
