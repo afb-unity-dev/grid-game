@@ -13,7 +13,8 @@ namespace Com.Afb.GridGame.Installers.Game {
         private void BindMapper() {
             var configuration = new MapperConfiguration(cfg => {
                 cfg.CreateMap<GridDto, GridModel>()
-                    .ForMember(model => model.GridMatrix, opt => opt.Ignore());
+                    .ForMember(model => model.GridMatrix, opt => opt.Ignore())
+                    .ForMember(model => model.Count, opt => opt.Ignore()); ;
             });
 
             // only during development, validate your mappings; remove it before release
