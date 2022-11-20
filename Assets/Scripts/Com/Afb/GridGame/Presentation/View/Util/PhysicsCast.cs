@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Com.Afb.GridGame.Presentation.View.Util {
     public class PhysicsCast {
-        private const float RADIUS = 0.1f;
+        private const float RADIUS = 0.02f;
 
         public static RaycastHit2D[] CircleCastScreenPosition(Vector2 position, Camera camera, int layerMask) {
             Vector2 worldPos = camera.ScreenToWorldPoint(new Vector3(position.x, position.y, camera.nearClipPlane));
